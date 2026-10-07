@@ -1,13 +1,11 @@
 import os
 import re
 import json
+import requests
 from datetime import datetime
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-
-# Deployed official Groq high-speed pipeline client
-from groq import Groq
 
 # Internal core functional dependencies
 from utils import extract_text_from_file
@@ -19,7 +17,8 @@ from auth import get_current_user
 
 load_dotenv()
 
-app = FastAPI(title="AI Resume Analyzer Core Backend Engine (Groq High-Speed Edition)")
+# --- STANDALONE FASTAPI INSTANCE DEFINITION ---
+app = FastAPI(title="AI Resume Analyzer Core Backend Engine (Production Global Edition)")
 
 # CORS Access Management Handshake Layer
 app.add_middleware(
@@ -45,8 +44,6 @@ def clean_json_string(raw_string: str) -> str:
 def get_semantic_similarity(resume_text: str, jd_text: str) -> float:
     """Computes semantic proximity matching metrics using pure algorithmic matrix distance fallback."""
     try:
-        # High-performance native string intersection vector weight fallback mapping 
-        # This completely guarantees zero latency delays on local laptop evaluation tests
         resume_words = set(re.findall(r'\w+', resume_text.lower()))
         jd_words = set(re.findall(r'\w+', jd_text.lower()))
         if not jd_words: return 50.0
@@ -80,7 +77,6 @@ async def analyze_resume(
             jd_match_percent = get_semantic_similarity(extracted_text, job_description)
 
         # Step 3: Deployed Groq Real-time Llama-3 Parsing Pipeline Framework
-        # We launch the absolute production stable llama-3.3-70b model running on Groq hardware channels
         client = Groq(api_key=groq_key)
         
         system_rules = get_ats_system_prompt()
@@ -88,25 +84,25 @@ async def analyze_resume(
         
         print("[GROQ ENGINE] Dispatching structural text constraints arrays down high-speed LPU pipelines...")
         
+        # Deployed onto official active production model 'qwen-2.5-coder-32b' running on Groq hardware channels
         response = client.chat.completions.create(
-            model="qwen/qwen3.8-27b",
+            model="qwen-2.5-coder-32b",
             messages=[
                 {"role": "system", "content": system_rules},
                 {"role": "user", "content": user_input_data}
             ],
-            response_format={"type": "json_object"}, # Forces strict schema structural output parsing natively!
+            response_format={"type": "json_object"},
             temperature=0.1,
-            max_tokens=800
+            max_tokens=1500
         )
         
-        raw_text_output = response.choices[0].message.content
+        raw_text_output = response.choices.message.content
         if not raw_text_output:
             raise ValueError("Groq dynamic processing LPU matrix returned a null string data trace buffer.")
             
         json_clean_string = clean_json_string(raw_text_output)
         parsed_analysis = json.loads(json_clean_string)
         
-        # Inject similarity mapping matrix variables calculated locally
         parsed_analysis["jd_match_percentage"] = jd_match_percent
 
         # Step 4: Record audit record context telemetry into MongoDB Atlas
