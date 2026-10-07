@@ -27,8 +27,6 @@ app = FastAPI(title="AI Resume Analyzer Core Backend Engine (Production Global E
 # Explicitly mapping your live production Vercel frontend URL to clear domain validation gates
 allowed_origins = [
     "https://ai-resume-analyzer-xi-neon.vercel.app", 
-    "http://localhost:3000",                          # Steady local machine testing bridge
-    "http://127.0.0.1:3000"
 ]
 
 print(f"[SYSTEM CONFIGURATION] Allowed security origins matrix securely locked onto: {allowed_origins}")
