@@ -7,6 +7,10 @@ from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
+# --- FIXED MASTER EXPORT IMPORT BLOCK ---
+# Added the missing core library client class for Groq execution channels
+from groq import Groq 
+
 # Internal core functional dependencies
 from utils import extract_text_from_file
 from models import AnalysisResponse
@@ -20,10 +24,24 @@ load_dotenv()
 # --- STANDALONE FASTAPI INSTANCE DEFINITION ---
 app = FastAPI(title="AI Resume Analyzer Core Backend Engine (Production Global Edition)")
 
+# --- DYNAMIC ENVIRONMENT URL CONFIGURATION LAYER ---
+# Fetching the live frontend application domain straight from your backend .env vault
+# Defaulting to localhost:3000 if the key isn't registered in the active environment profile
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
+
+# Structuring authorized cross-origin resource sharing access matrices
+allowed_origins = [
+    FRONTEND_URL,
+    "http://localhost:3000",          # Safe fallback to ensure steady local desktop environment machinery tests
+    "http://127.0.0.1:3000"
+]
+
+print(f"[SYSTEM SECURITY] Allowed gateway origins matrix securely locked onto: {allowed_origins}")
+
 # CORS Access Management Handshake Layer
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
