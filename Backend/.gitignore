@@ -1,0 +1,21 @@
+# Python Compilation Caches (Fuzool Binary Files)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments Isolation Folders (Sabse Bhari Folders)
+venv/
+ENV/
+env/
+.env/
+
+# System Configurations Environmental Vault Files (Aapki Private Keys)
+.env
+.env.*
+
+# Editor Crash System Dumps & Operating System Trash
+.vscode/
+.idea/
+*.swp
+*.log
+.DS_Store
