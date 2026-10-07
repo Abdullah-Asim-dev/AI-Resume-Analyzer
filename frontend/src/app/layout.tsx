@@ -2,13 +2,14 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+// Fixed quotes hierarchy parameter parsing loop
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: 'Resume Vectors | Free AI ATS Optimization Matrix Engine',
   description: 'Instantly audit your professional resume against advanced neural screening algorithms. Identify critical semantic gaps, technical traits, and rewrite weak bullet points effortlessly.',
   alternates: {
-    canonical: 'https://resumevectors.com', // Change this to your final custom production domain
+    canonical: 'https://resumevectors.com', // Change this to your final custom production domain later
   }
 };
 

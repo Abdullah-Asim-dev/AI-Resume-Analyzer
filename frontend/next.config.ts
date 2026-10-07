@@ -5,10 +5,11 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/proxy/:path*',
-        destination: 'http://localhost:8000/api/:path*', // Deployed directly to local address interface
+        destination: 'https://onrender.com*', 
       },
     ];
   },
 };
 
 export default nextConfig;
+

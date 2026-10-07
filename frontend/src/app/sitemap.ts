@@ -1,18 +1,23 @@
 import { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://yourdomain.com'; // Isko real domain se change karenge baad mein
+  // Target dynamic core framework directly to your frontend app interface
+  // (Change this string to your premium custom domain like 'https://resumevectors.com' later)
+  const baseUrl = 'http://localhost:3000'; 
 
-  // Array of your programmatic pSEO roles
+  // Comprehensive array of your programmatic pSEO target roles
   const popularRoles = [
     'software-engineer',
     'react-developer',
     'data-analyst',
     'product-manager',
     'devops-architect',
+    'frontend-developer',
+    'backend-engineer',
+    'fullstack-developer'
   ];
 
-  // Map pSEO paths safely
+  // Map pSEO paths safely with strict formatting standards
   const roleEntries = popularRoles.map((role) => ({
     url: `${baseUrl}/resume-analyzer/${role}`,
     lastModified: new Date(),
@@ -20,7 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // Base core pages mapping
+  // Base landing core pages mapping matrix
   const baseEntries = [
     {
       url: baseUrl,
@@ -30,6 +35,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/auth`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/dashboard`,
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.3,
