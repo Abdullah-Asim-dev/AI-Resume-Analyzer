@@ -7,8 +7,7 @@ from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
-# --- FIXED MASTER EXPORT IMPORT BLOCK ---
-# Added the missing core library client class for Groq execution channels
+# Core library client class for Groq execution channels
 from groq import Groq 
 
 # Internal core functional dependencies
@@ -24,19 +23,15 @@ load_dotenv()
 # --- STANDALONE FASTAPI INSTANCE DEFINITION ---
 app = FastAPI(title="AI Resume Analyzer Core Backend Engine (Production Global Edition)")
 
-# --- DYNAMIC ENVIRONMENT URL CONFIGURATION LAYER ---
-# Fetching the live frontend application domain straight from your backend .env vault
-# Defaulting to localhost:3000 if the key isn't registered in the active environment profile
-FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
-
-# Structuring authorized cross-origin resource sharing access matrices
+# --- STRUCTURAL AUTHORIZED CORS ORIGINS MATRIX ---
+# Explicitly mapping your live production Vercel frontend URL to clear domain validation gates
 allowed_origins = [
-    FRONTEND_URL,
-    "http://localhost:3000",          # Safe fallback to ensure steady local desktop environment machinery tests
+    "https://ai-resume-analyzer-xi-neon.vercel.app", 
+    "http://localhost:3000",                          # Steady local machine testing bridge
     "http://127.0.0.1:3000"
 ]
 
-print(f"[SYSTEM SECURITY] Allowed gateway origins matrix securely locked onto: {allowed_origins}")
+print(f"[SYSTEM CONFIGURATION] Allowed security origins matrix securely locked onto: {allowed_origins}")
 
 # CORS Access Management Handshake Layer
 app.add_middleware(
